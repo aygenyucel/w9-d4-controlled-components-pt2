@@ -3,7 +3,7 @@ import { ListGroup } from "react-bootstrap";
 const CommentList = (props) => {
   let { selectedBookComments } = props;
   return (
-    <ListGroup className="my-3" style={{ backgroundColor: "green" }}>
+    <ListGroup style={{ backgroundColor: "green" }}>
       {selectedBookComments?.map((comment) => (
         <ListGroup.Item>
           <div>

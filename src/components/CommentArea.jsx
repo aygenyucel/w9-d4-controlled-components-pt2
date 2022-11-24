@@ -1,13 +1,14 @@
 //CommentArea should fetch and store the comments for the selected book, and contains two sub-components: CommentsList and AddComment.
 import { Component } from "react";
 import CommentList from "./CommentList";
+import AddComment from "./AddComment";
 
 class CommentArea extends Component {
   state = {
     selectedBookComments: [],
   };
 
-  fetchAllComments = async () => {
+  fetchSelectedComments = async () => {
     try {
       let response = await fetch(
         `https://striveschool-api.herokuapp.com/api/comments/${this.props.selectedBook.asin}`,
@@ -35,16 +36,16 @@ class CommentArea extends Component {
   };
 
   componentDidMount() {
-    this.fetchAllComments();
+    this.fetchSelectedComments();
   }
 
   render() {
-    let { selectedBook } = this.props;
-
     return (
-      <>
+      <div className="my-3">
         <CommentList selectedBookComments={this.state.selectedBookComments} />
-      </>
+        <br />
+        <AddComment selectedBookId={this.props.selectedBook.asin} />
+      </div>
     );
   }
 }
