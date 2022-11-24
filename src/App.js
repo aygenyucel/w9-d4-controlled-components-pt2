@@ -7,8 +7,6 @@ import BookList from "./components/BookList";
 function App() {
   return (
     <div className="App">
-      <WarningSign />
-      <MyBadge />
       <BookList />
     </div>
   );

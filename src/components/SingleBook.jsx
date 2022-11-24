@@ -1,24 +1,29 @@
 import { Component } from "react";
 import { Card, Col } from "react-bootstrap";
+import CommentArea from "./CommentArea";
 import "./SingleBook.css";
 
 class SingleBook extends Component {
   state = {
-    selected: false,
+    isSelected: false,
+    selectedBook: null,
   };
 
   render() {
-    let { singleBookObject } = this.props;
+    let { singleBookObject, key } = this.props;
 
-    const toggleClass = () => {
-      this.setState({ selected: !this.state.selected });
-    };
     return (
-      <Col xs={6} md={4} lg={3} className="mb-3" key={singleBookObject.asin}>
+      <Col xs={6} md={4} lg={3} className="mb-3 d-flex flex-column" key={key}>
         <Card
-          onClick={toggleClass}
+          onClick={() => {
+            this.setState({
+              isSelected: !this.state.isSelected,
+              selectedBook: singleBookObject,
+            });
+            console.log("CLICKED!", this.state.selectedBook);
+          }}
           className={
-            this.state.selected ? "card-selected" : "card-not-selected"
+            this.state.isSelected ? "card-selected" : "card-not-selected"
           }
         >
           <Card.Img variant="top" src={singleBookObject.img} />
@@ -26,6 +31,9 @@ class SingleBook extends Component {
             <Card.Title>{singleBookObject.title}</Card.Title>
           </Card.Body>
         </Card>
+        {this.state.isSelected && (
+          <CommentArea selectedBook={this.state.selectedBook} />
+        )}
       </Col>
     );
   }
